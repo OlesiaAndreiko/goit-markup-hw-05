@@ -15,13 +15,15 @@
   --light-bg-cl: #f5f4fa;
   --accent-bg-btn-cl: #188ce8;
   --overlay-header-cl: rgba(47, 48, 58, 0.4);
+  --olervay-serv-cl: rgba(47, 48, 58, 0.8);
+  --ovarlay-modal-cl: rgba(0, 0, 0, 0.2);
   --social-footer-bg: rgba(255, 255, 255, 0.1);
 
   /* shadow-colors */
 
   --shadow-hero-title: 0px 4px 4px rgba(0, 0, 0, 0.25);
   --shadow-hero-btn: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  --shadow-team: 0px 1px 3px rgba(0, 0, 0, 0.12),
+  --shadow-team-modal: 0px 1px 3px rgba(0, 0, 0, 0.12),
     0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
   --shadow--btn-filter: 0px 3px 1px rgba(0, 0, 0, 0.1),
     0px 1px 2px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
@@ -41,6 +43,7 @@
 
   /* border-radius */
   --br-standart: 4px;
+  --br-after: 2px;
   --br-team: 0px 0px 4px 4px;
   --br-circle: 50%;
 }
@@ -172,7 +175,23 @@ img {
 }
 
 .current {
+  position: relative;
   color: var(--accent-cl);
+}
+
+.current::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+
+  border-radius: var(--br-after);
+  background-color: var(--accent-cl);
 }
 
 .header-contact-list {
@@ -309,6 +328,28 @@ img {
   padding-top: 0;
 }
 
+.serv-card {
+  position: relative;
+}
+
+.serv-desc {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  display: block;
+  padding-top: 27px;
+  padding-bottom: 27px;
+
+  font-weight: 700;
+  line-height: calc(16 / 14);
+  text-align: center;
+  text-transform: uppercase;
+
+  color: var(--white-cl);
+  background-color: var(--olervay-serv-cl);
+}
+
 /* Team section */
 
 .team {
@@ -321,7 +362,7 @@ img {
 
 .team-item {
   background-color: var(--white-cl);
-  box-shadow: var(--shadow-team);
+  box-shadow: var(--shadow-team-modal);
 
   border-radius: var(--br-team);
 }
@@ -526,4 +567,56 @@ footer .logo {
 
 .social-icon {
   fill: currentColor;
+}
+
+/* Modal window */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--ovarlay-modal-cl);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 528px;
+  height: 581px;
+
+  background-color: var(--white-cl);
+  box-shadow: var(--shadow-team-modal);
+
+  border-radius: var(--br-standart);
+}
+
+.modal-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  background-color: transparent;
+
+  border: none;
+  border-radius: var(--br-circle);
+
+  cursor: pointer;
 }
