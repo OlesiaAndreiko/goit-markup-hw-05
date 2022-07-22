@@ -17,6 +17,7 @@
   --overlay-header-cl: rgba(47, 48, 58, 0.4);
   --olervay-serv-cl: rgba(47, 48, 58, 0.8);
   --ovarlay-modal-cl: rgba(0, 0, 0, 0.2);
+  --ovarlay-project: rgba(33, 150, 243, 0.9);
   --social-footer-bg: rgba(255, 255, 255, 0.1);
 
   /* shadow-colors */
@@ -42,10 +43,14 @@
   --card-item: 3;
 
   /* border-radius */
-  --br-standart: 4px;
-  --br-after: 2px;
-  --br-team: 0px 0px 4px 4px;
-  --br-circle: 50%;
+  --radius-standart: 4px;
+  --radius-current: 2px;
+  --radius-team: 0px 0px 4px 4px;
+  --radius-circle: 50%;
+
+  /* animation */
+  --animation: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+ 
 }
 
 body {
@@ -190,7 +195,7 @@ img {
   width: 100%;
   height: 4px;
 
-  border-radius: var(--br-after);
+  border-radius: var(--radius-current);
   background-color: var(--accent-cl);
 }
 
@@ -205,6 +210,8 @@ img {
   align-items: center;
   padding-top: 32px;
   padding-bottom: 32px;
+
+  transition: color var(--animation);
 }
 
 .header-link:hover,
@@ -278,15 +285,17 @@ img {
   background: var(--accent-cl);
   box-shadow: var(--shadow-hero-btn);
 
-  border-radius: var(--br-standart);
+  border-radius: var(--radius-standart);
   border: none;
+
+  cursor: pointer;
+
+  transition: background-color var(--animation);
 }
 
 .hero-btn:hover,
 .hero-btn:focus {
   background-color: var(--accent-bg-btn-cl);
-
-  cursor: pointer;
 }
 
 /* Advantage section */
@@ -309,7 +318,7 @@ img {
 
   background-color: var(--light-bg-cl);
 
-  border-radius: var(--br-standart);
+  border-radius: var(--radius-standart);
 }
 
 .advantage-title {
@@ -364,7 +373,7 @@ img {
   background-color: var(--white-cl);
   box-shadow: var(--shadow-team-modal);
 
-  border-radius: var(--br-team);
+  border-radius: var(--radius-team);
 }
 
 .team-desc {
@@ -405,7 +414,9 @@ img {
 
   color: var(--clients-cl);
   border: 1px solid var(--clients-cl);
-  border-radius: var(--br-standart);
+  border-radius: var(--radius-standart);
+
+  transition: color var(--animation), border-color var(--animation);
 }
 
 .client-icon {
@@ -414,7 +425,7 @@ img {
 
 .client-link:hover,
 .client-link:focus {
-  border: 1px solid var(--accent-cl);
+  border-color: var(--accent-cl);
   color: var(--accent-cl);
 }
 
@@ -440,27 +451,73 @@ img {
   line-height: calc(26 / 16);
   text-align: center;
 
-  border-radius: var(--br-standart);
+  border-radius: var(--radius-standart);
   border: none;
 
   cursor: pointer;
+
+  transition: color var(--animation), background-color var(--animation),
+    box-shadow var(--animation);
 }
 
 .btn-filter:hover,
 .btn-filter:focus {
-  background-color: var(--accent-cl);
   color: var(--white-cl);
+  background-color: var(--accent-cl);
   box-shadow: var(--shadow--btn-filter);
 }
 
 .project-link {
   display: block;
+
+  transition: box-shadow var(--animation);
 }
 
 .project-link:hover,
 .project-link:focus {
   box-shadow: var(--shadow-project);
 }
+
+.project-exposition {
+  position: relative;
+  overflow: hidden;
+
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  transform: translateY(100%);
+  
+  transition: transform var(--animation), opacity var(--animation);
+}
+
+.overlay-text {
+  padding: 63px 24px;
+
+  font-size: 18px;
+  line-height: calc(28 / 18);
+
+  color: var(--white-cl);
+  background-color: var(--ovarlay-project);
+}
+
+.project-link:hover .project-overlay, 
+.project-link:focus .project-overlay {
+   opacity: 1;
+  transform: translateY(0%);
+
+ }
 
 .project-div {
   padding-top: 20px;
@@ -512,6 +569,10 @@ footer .logo {
   font-style: inherit;
 }
 
+.footer-address .link {
+  transition: color var(--animation);
+}
+
 .footer-address .link:hover,
 .footer-address .link:focus {
   color: var(--accent-cl);
@@ -549,9 +610,11 @@ footer .logo {
 
   width: 44px;
   height: 44px;
-  border-radius: var(--br-circle);
+  border-radius: var(--radius-circle);
 
   color: var(--social-cl);
+
+  transition: color var(--animation), background-color var(--animation);
 }
 
 .footer .social-link {
@@ -577,7 +640,10 @@ footer .logo {
   left: 0;
   width: 100%;
   height: 100%;
+
   background-color: var(--ovarlay-modal-cl);
+
+  transition: opacity var(--animation), visibility var(--animation);
 }
 
 .backdrop.is-hidden {
@@ -587,10 +653,10 @@ footer .logo {
 }
 
 .modal {
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
 
   width: 528px;
   height: 581px;
@@ -598,7 +664,13 @@ footer .logo {
   background-color: var(--white-cl);
   box-shadow: var(--shadow-team-modal);
 
-  border-radius: var(--br-standart);
+  border-radius: var(--radius-standart);
+
+  transition: transform var(--animation) 250ms, opacity var(--animation) 250ms;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .modal-btn {
@@ -616,7 +688,7 @@ footer .logo {
   background-color: transparent;
 
   border: none;
-  border-radius: var(--br-circle);
+  border-radius: var(--radius-circle);
 
   cursor: pointer;
 }
