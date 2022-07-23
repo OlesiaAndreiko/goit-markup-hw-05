@@ -666,7 +666,7 @@ footer .logo {
 
   border-radius: var(--radius-standart);
 
-  transition: transform var(--animation) 250ms, opacity var(--animation) 250ms;
+  transition: transform var(--animation), opacity var(--animation);
 }
 
 .backdrop.is-hidden .modal {
